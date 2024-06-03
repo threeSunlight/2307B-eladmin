@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
   <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
@@ -19,7 +14,33 @@ import HelloWorld from './components/HelloWorld.vue'
 
   <RouterView />
 </template>
+<script lang="ts" setup>
+import { RouterLink, RouterView } from 'vue-router'
+import HelloWorld from './components/HelloWorld.vue'
+/**
+ * 目的: 看一眼我们的封装
+ * 第一步: 引入封装后的接口
+ *
+ *
+ */
+/**
+ * 封装请求登录页面接口
+ */
+const loginData = {
+  code: '12',
+  password:
+    'J21fi9jtRxKWcVr9w6h8ll9o8Djpnpozxn5H4Ds2Uv5T8ybF65cfIx1jRuhu0W6LmZxv/Wx+6CNQAH8Zqx+k2g==',
+  username: 'admin',
+  uuid: 'captcha-code:150b77dd638a4ed6bb265cd0c838bf7b'
+}
 
+import { Login } from '@/api'
+
+const result = await Login(loginData)
+console.log('-------------')
+console.log(result)
+console.log('---+++++++++++----------')
+</script>
 <style scoped>
 header {
   line-height: 1.5;

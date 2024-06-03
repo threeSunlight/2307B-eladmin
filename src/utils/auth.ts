@@ -8,7 +8,8 @@
  * 3. 当我们退出当前用户的时候,将token从cookies中移除 remove
  * 
  */
-import Cookies from 'js-cookie'
+//@ts-ignore
+import Cookies from '@/types/js-cookie'
 
 /**提出来,方便随后进行配置 */
 let token = "token"
