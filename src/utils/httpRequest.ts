@@ -55,7 +55,7 @@ class Request {
         this.serves.interceptors.request.use(
             (config: InternalAxiosRequestConfig) => {
                 // 因为将token已经封装cookie中,所以从cookie取出token,进行放置
-                config.headers["Authorization"] = getToken()
+                config.headers["Authorization"] = getToken("Authorization")
                 return config
             },
             (error: AxiosError) => {
@@ -76,9 +76,9 @@ class Request {
                  */
                 console.log(response, 'response')
                 const { data, config } = response // 解构
-                if (data.meta.status === TS.Code.GUOQI) {
+                if (data.status === TS.Code.GUOQI) {
                     // 登录信息失效，应跳转到登录页面，并清空本地的token
-                    removeToken()
+                    removeToken("Authorization")
                     router.replace({ path: '/login' })
                     return Promise.reject(data)
                 } // 全局错误信息拦截（防止下载文件得时候返回数据流，没有code，直接报
@@ -86,9 +86,7 @@ class Request {
             },
             /**请求报错 */
             (error: AxiosError) => {
-                console.log("++++++++++++")
-                console.log(error)
-                console.log("------------")
+
                 let title: string = ""
                 /**
                  * 先判断返回的是否是401,如果是401就跳转到登录页面,如果不是,其他返回状态,根据状态报错
@@ -97,7 +95,7 @@ class Request {
                 if (error && response) {
                     // 401, token失效
                     if (response.status === TS.Code.GUOQI) {
-                        removeToken()
+                        removeToken("Authorization")
                         router.push(
                             {
                                 name: 'login'
@@ -167,16 +165,16 @@ class Request {
      *          totalElements: number
      *   }
      */
-    get<T, A>(url: string, params?: A): Promise<TS.ReaposeResult<T>> {
+    get<T>(url: string, params?: object): Promise<T> {
         return this.serves.get(this.adUrl(url), { params })
     }
-    post<T, A>(url: string, params?: A): Promise<TS.ReaposeResult<T>> {
+    post<T>(url: string, params?: object): Promise<T> {
         return this.serves.post(this.adUrl(url), params)
     }
-    put<T, A>(url: string, params?: A): Promise<TS.ReaposeResult<T>> {
+    put<T>(url: string, params?: object): Promise<T> {
         return this.serves.put(this.adUrl(url), params)
     }
-    delete<T, A>(url: string, params?: A): Promise<TS.ReaposeResult<T>> {
+    delete<T>(url: string, params?: object): Promise<T> {
         return this.serves.delete(this.adUrl(url), { params })
     }
 }
