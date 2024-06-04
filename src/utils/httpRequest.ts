@@ -27,7 +27,7 @@
  * 
  */
 import axios, { type AxiosInstance, AxiosError, type AxiosRequestConfig, type AxiosResponse, type InternalAxiosRequestConfig } from "axios"
-// import { getToken, removeToken } from './auth'
+import { getToken, removeToken } from './auth'
 import router from '@/router'
 import { ElMessageBox } from 'element-plus'
 import * as TS from './httpTypes'
@@ -55,7 +55,7 @@ class Request {
         this.serves.interceptors.request.use(
             (config: InternalAxiosRequestConfig) => {
                 // 因为将token已经封装cookie中,所以从cookie取出token,进行放置
-                // config.headers["Authorization"] = getToken()
+                config.headers["Authorization"] = getToken()
                 return config
             },
             (error: AxiosError) => {
@@ -78,7 +78,7 @@ class Request {
                 const { data, config } = response // 解构
                 if (data.meta.status === TS.Code.GUOQI) {
                     // 登录信息失效，应跳转到登录页面，并清空本地的token
-                    // removeToken()
+                    removeToken()
                     router.replace({ path: '/login' })
                     return Promise.reject(data)
                 } // 全局错误信息拦截（防止下载文件得时候返回数据流，没有code，直接报
@@ -97,7 +97,7 @@ class Request {
                 if (error && response) {
                     // 401, token失效
                     if (response.status === TS.Code.GUOQI) {
-                        // removeToken()
+                        removeToken()
                         router.push(
                             {
                                 name: 'login'

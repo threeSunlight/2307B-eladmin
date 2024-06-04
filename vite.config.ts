@@ -26,6 +26,7 @@ const env = loadEnv(process.env.NODE_ENV, process.cwd());
  */
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/",
   /**修改打包跟目录路径 */
   build: {
     /**打包输出文件夹 */
@@ -100,7 +101,7 @@ export default defineConfig({
     // 路径别名
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      "@component": fileURLToPath(new URL('./src/components', import.meta.url))
+
     }
   }
 })

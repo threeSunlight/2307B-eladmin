@@ -9,7 +9,7 @@
  * 
  */
 //@ts-ignore
-import Cookies from '@/types/js-cookie'
+import Cookies from 'js-cookie'
 
 /**提出来,方便随后进行配置 */
 let token = "token"
