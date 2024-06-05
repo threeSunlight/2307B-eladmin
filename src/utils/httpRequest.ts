@@ -102,33 +102,34 @@ class Request {
                             }
                         )
                     }
-                    switch (
-                    response.status // 跨域存在获取不到状态码的情况
-                    ) {
-                        case TS.Code.ERROR:
-                            title = '错误请求'
-                            break
-                        case TS.Code.GUOQI:
-                            title = '资源未授权'
-                            break
-                        case TS.Code.NOFOUND:
-                            title = '未找到所请求的资源'
-                            break
-                        case TS.Code.FUERROR:
-                            title = '内部服务器错误'
-                            break
+                    // switch (
+                    // response.status // 跨域存在获取不到状态码的情况
+                    // ) {
+                    //     // case TS.Code.ERROR:
+                    //     //     title = '错误请求'
+                    //     //     break
+                    //     case TS.Code.GUOQI:
+                    //         title = '资源未授权'
+                    //         break
+                    //     // case TS.Code.NOFOUND:
+                    //     //     title = '未找到所请求的资源'
+                    //     //     break
+                    //     // case TS.Code.FUERROR:
+                    //     //     title = '内部服务器错误'
+                    //     //     break
 
-                        default:
-                            title = response.status.toString()
-                    }
-                    return ElMessageBox.alert(
-                        title,
-                        '提示',
-                        {
-                            confirmButtonText: 'OK',
-                            type: 'warning',
-                        }
-                    )
+                    //     default:
+                    //         title = response.status.toString()
+                    // }
+                    // ElMessageBox.alert(
+                    //     title,
+                    //     '提示',
+                    //     {
+                    //         confirmButtonText: 'OK',
+                    //         type: 'warning',
+                    //     }
+                    // )
+                    return response.data
                 } else {
                     // 跨域获取不到状态码或者其他状态进行的处理
                     return ElMessageBox.alert(
