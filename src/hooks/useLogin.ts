@@ -55,7 +55,7 @@ export default function useLogin() {
         Login(result)
             .then((res) => {
                 console.log(res, 'res');
-                if (res.status === 200) {
+                if (!res.status) {
                     setToken('Authorization', res.token)
                     router.replace({
                         path: '/dashboard'
@@ -63,10 +63,11 @@ export default function useLogin() {
                 } else {
                     ElMessage.error(res.message)
                 }
-
+                code()
 
             })
             .catch((err) => {
+                code()
                 // 用弹框报错弹出去
                 console.log(err, '报错了')
                 // ElMessage.error(err.message)
